@@ -182,7 +182,7 @@ from open_webui.utils.tools import (
     get_updated_tool_function,
     is_file_context_enabled,
 )
-from starlette.responses import JSONResponse, Response, StreamingResponse
+from starlette.responses import Response, StreamingResponse
 
 logging.basicConfig(stream=sys.stdout, level=GLOBAL_LOG_LEVEL)
 log = logging.getLogger(__name__)
@@ -1556,7 +1556,7 @@ async def chat_image_generation_handler(request: Request, form_data: dict, extra
                 {
                     'type': 'status',
                     'data': {
-                        'description': f'An error occurred while generating an image',
+                        'description': 'An error occurred while generating an image',
                         'done': True,
                     },
                 }
@@ -1668,7 +1668,7 @@ async def chat_image_generation_handler(request: Request, form_data: dict, extra
                 {
                     'type': 'status',
                     'data': {
-                        'description': f'An error occurred while generating an image',
+                        'description': 'An error occurred while generating an image',
                         'done': True,
                     },
                 }
@@ -3834,7 +3834,7 @@ async def background_tasks_handler(ctx):
                                     }
                                 )
 
-                    if title == None and len(messages) == 2 and (not messages_map or len(messages_map) <= 2):
+                    if title is None and len(messages) == 2 and (not messages_map or len(messages_map) <= 2):
                         title = replace_skill_mentions_with_labels(messages[0].get('content', user_message))
 
                         await Chats.update_chat_title_by_id(metadata['chat_id'], title)

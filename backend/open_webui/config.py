@@ -522,7 +522,7 @@ MARIADB_VECTOR_INDEX_M = int(os.getenv('MARIADB_VECTOR_INDEX_M', '8').strip() or
 # Pooling (MariaDB-Vector)
 MARIADB_VECTOR_POOL_SIZE = os.getenv('MARIADB_VECTOR_POOL_SIZE', None)
 
-if MARIADB_VECTOR_POOL_SIZE != None:
+if MARIADB_VECTOR_POOL_SIZE is not None:
     try:
         MARIADB_VECTOR_POOL_SIZE = int(MARIADB_VECTOR_POOL_SIZE)
     except Exception:
@@ -652,7 +652,7 @@ if PGVECTOR_PGCRYPTO and not PGVECTOR_PGCRYPTO_KEY:
 
 PGVECTOR_POOL_SIZE = os.getenv('PGVECTOR_POOL_SIZE', None)
 
-if PGVECTOR_POOL_SIZE != None:
+if PGVECTOR_POOL_SIZE is not None:
     try:
         PGVECTOR_POOL_SIZE = int(PGVECTOR_POOL_SIZE)
     except Exception:
@@ -733,7 +733,7 @@ OPENGAUSS_INITIALIZE_MAX_VECTOR_LENGTH = int(os.getenv('OPENGAUSS_INITIALIZE_MAX
 
 OPENGAUSS_POOL_SIZE = os.getenv('OPENGAUSS_POOL_SIZE', None)
 
-if OPENGAUSS_POOL_SIZE != None:
+if OPENGAUSS_POOL_SIZE is not None:
     try:
         OPENGAUSS_POOL_SIZE = int(OPENGAUSS_POOL_SIZE)
     except Exception:
@@ -2914,8 +2914,8 @@ async def load_oauth_providers():
             f'⚠️  OAuth providers configured ({provider_list}) but OPENID_PROVIDER_URL not set - logout will not work!'
         )
         log.warning(
-            f"Set OPENID_PROVIDER_URL to your OAuth provider's OpenID Connect discovery endpoint,"
-            f' or set OPENID_END_SESSION_ENDPOINT to a custom logout URL to fix logout functionality.'
+            "Set OPENID_PROVIDER_URL to your OAuth provider's OpenID Connect discovery endpoint,"
+            ' or set OPENID_END_SESSION_ENDPOINT to a custom logout URL to fix logout functionality.'
         )
 
 

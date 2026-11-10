@@ -828,7 +828,7 @@ app.include_router(retrieval.router, prefix='/api/v1/retrieval', tags=['retrieva
 
 app.include_router(configs.router, prefix='/api/v1/configs', tags=['configs'])
 
-from open_webui.env import UVICORN_WORKERS, REDIS_URL
+from open_webui.env import UVICORN_WORKERS
 from open_webui.routers import tether
 
 app.include_router(tether.router, prefix='/api/v1/tether', tags=['tether'])
@@ -2777,7 +2777,7 @@ async def get_app_version():
 @app.get('/api/version/updates')
 async def get_app_latest_release_version(user=Depends(get_verified_user)):
     if not ENABLE_VERSION_UPDATE_CHECK:
-        log.debug(f'Version update check is disabled, returning current version as latest version')
+        log.debug('Version update check is disabled, returning current version as latest version')
         return {'current': VERSION, 'latest': VERSION}
     try:
         timeout = aiohttp.ClientTimeout(total=1)

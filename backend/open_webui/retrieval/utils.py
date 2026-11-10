@@ -1800,10 +1800,10 @@ def get_model_path(model: str, update_model: bool = False):
 
 
 import operator
-from typing import Optional, Sequence
+from typing import Sequence
 
 from langchain_core.callbacks import Callbacks
-from langchain_core.documents import BaseDocumentCompressor, Document
+from langchain_core.documents import BaseDocumentCompressor
 
 
 def cosine_similarity(query, documents) -> np.ndarray:

@@ -44,7 +44,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm.attributes import flag_modified
-from sqlalchemy.sql import case, exists
+from sqlalchemy.sql import case
 from sqlalchemy.sql.expression import bindparam
 
 log = logging.getLogger(__name__)
@@ -2682,7 +2682,7 @@ class ChatTable:
             log.info('DB dialect name: %s', dialect_name)
             if dialect_name == 'sqlite':
                 stmt = stmt.filter(
-                    text(f"EXISTS (SELECT 1 FROM json_each(Chat.meta, '$.tags') WHERE json_each.value = :tag_id)")
+                    text("EXISTS (SELECT 1 FROM json_each(Chat.meta, '$.tags') WHERE json_each.value = :tag_id)")
                 ).params(tag_id=tag_id)
             elif dialect_name == 'postgresql':
                 stmt = stmt.filter(
