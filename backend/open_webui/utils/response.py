@@ -162,13 +162,19 @@ def convert_ollama_tool_call_to_chat_completions(tool_calls: list) -> list:
     openai_tool_calls = []
     for tool_call in tool_calls:
         function = tool_call.get('function', {})
+        arguments = function.get('arguments', {})
+        # Dict arguments get the codec treatment; an arguments string the model
+        # already produced goes through byte-for-byte, so provider-side caches
+        # keep matching. Same guard as the Responses API converter.
+        if not isinstance(arguments, str):
+            arguments = JSONCodec.dumps(arguments)
         openai_tool_call = {
             'index': tool_call.get('index', function.get('index', 0)),
             'id': tool_call.get('id', f'call_{str(uuid4())}'),
             'type': 'function',
             'function': {
                 'name': function.get('name', ''),
-                'arguments': JSONCodec.dumps(function.get('arguments', {})),
+                'arguments': arguments,
             },
         }
         openai_tool_calls.append(openai_tool_call)
